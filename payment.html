@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #242333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        h1,h2, h3 {
+            margin: 20px 0;
+            color: #dce0e4;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background-color: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #dce0e4; /* Button color */
+            color: rgb(6, 6, 6);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Button hover color */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Page</h1>
+        <h2>Your Selected Seats:</h2>
+        <ul id="paymentSelectedSeats"></ul>
+        <h3>Total Price: $20 (for example)</h3>
+        <button id="confirmPayment">Confirm Payment</button>
+        <button id="backToBooking"><a href="index.html"></a>back to Booking</button>
+    </div>
+
+    <script>
+        // Function to get query parameters
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('seats');
+        }
+
+        // Display selected seats
+        const selectedSeats = getQueryParams();
+        const selectedSeatsList = document.getElementById('paymentSelectedSeats');
+
+        if (selectedSeats) {
+            selectedSeats.split(',').forEach(seat => {
+                const li = document.createElement('li');
+                li.textContent = `Seat: ${seat}`;
+                selectedSeatsList.appendChild(li);
+            });
+        }
+        const ticketPrice = localStorage.getItem("ticketPrice");
+         const totalPriceElement = document.querySelector('h3');
+         if (ticketPrice) {
+            totalPriceElement.textContent = `Total Price: RS.${ticketPrice}`;
+    }
+
+        // Confirm payment button click handler
+        document.getElementById('confirmPayment').onclick = () => {
+            alert('Payment confirmed! Thank you for your purchase.');
+            // Redirect to a confirmation or homepage
+            window.location.href = 'index.html'; // or your desired page
+        };
+
+        // Back to booking button click handler
+        document.getElementById('backToBooking').onclick = () => {
+            window.location.href = 'index.html'; // Redirect back to the booking page
+        };
+    </script>
+</body>
+</html>
